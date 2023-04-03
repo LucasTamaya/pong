@@ -8,6 +8,7 @@
 #include "rendering.h"
 
 void closeProgram(SDL_Renderer *renderer, SDL_Window *window);
+void createRect(SDL_Rect *rect, int x, int y, int w, int h);
 
 int main(int argc, char **argv)
 {
@@ -17,6 +18,7 @@ int main(int argc, char **argv)
     SDL_Rect padRight = {};
     SDL_Rect ball = {};
     SDL_Color color = {94, 0, 188, 255};
+    int isProgramLaunched = 1;
     int isGameStarted = 0;
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -25,24 +27,11 @@ int main(int argc, char **argv)
     if (SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE, &window, &renderer) != 0)
         exitWithError(__FILE__, 31);
 
-    padLeft.w = PAD_WIDTH;
-    padLeft.h = PAD_HEIGHT;
-    padLeft.x = 20;
-    padLeft.y = (WINDOW_HEIGHT - PAD_HEIGHT) / 2;
+    createRect(&padLeft, 20, (WINDOW_HEIGHT - PAD_HEIGHT) / 2, PAD_WIDTH, PAD_HEIGHT);
+    createRect(&padRight, WINDOW_WIDTH - PAD_WIDTH - 20, (WINDOW_HEIGHT - PAD_HEIGHT) / 2, PAD_WIDTH, PAD_HEIGHT);
+    createRect(&ball, (WINDOW_WIDTH - BALL_WIDTH) / 2, (WINDOW_HEIGHT - BALL_HEIGHT) / 2, BALL_WIDTH, BALL_HEIGHT);
 
-    padRight.w = PAD_WIDTH;
-    padRight.h = PAD_HEIGHT;
-    padRight.x = WINDOW_WIDTH - PAD_WIDTH - 20;
-    padRight.y = (WINDOW_HEIGHT - PAD_HEIGHT) / 2;
-
-    ball.w = BALL_WIDTH;
-    ball.h = BALL_HEIGHT;
-    ball.x = (WINDOW_WIDTH - BALL_WIDTH) / 2;
-    ball.y = (WINDOW_HEIGHT - BALL_HEIGHT) / 2;
-
-    SDL_bool programLaunched = 1;
-
-    while (programLaunched)
+    while (isProgramLaunched)
     {
         SDL_Event event;
         while (SDL_PollEvent(&event))
@@ -54,7 +43,7 @@ int main(int argc, char **argv)
                 break;
 
             case SDL_QUIT:
-                programLaunched = 0;
+                isProgramLaunched = 0;
                 break;
 
             default:
@@ -89,4 +78,12 @@ void closeProgram(SDL_Renderer *renderer, SDL_Window *window)
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+void createRect(SDL_Rect *rect, int x, int y, int w, int h)
+{
+    rect->x = x;
+    rect->y = y;
+    rect->w = w;
+    rect->h = h;
 }
