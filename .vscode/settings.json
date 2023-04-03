@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "stdlib.h": "c",
+    "pad_movement.h": "c"
+  }
+}
