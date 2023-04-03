@@ -7,18 +7,18 @@
 #include "key_events.h"
 #include "rendering.h"
 
-void closeProgram(void);
-
-SDL_Window *window = NULL;
-SDL_Renderer *renderer = NULL;
-SDL_Rect padLeft = {};
-SDL_Rect padRight = {};
-SDL_Rect ball = {};
-SDL_Color color = {94, 0, 188, 255};
-int gameStarted = 0;
+void closeProgram(SDL_Renderer *renderer, SDL_Window *window);
 
 int main(int argc, char **argv)
 {
+    SDL_Window *window = NULL;
+    SDL_Renderer *renderer = NULL;
+    SDL_Rect padLeft = {};
+    SDL_Rect padRight = {};
+    SDL_Rect ball = {};
+    SDL_Color color = {94, 0, 188, 255};
+    int isGameStarted = 0;
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
         exitWithError(__FILE__, 28);
 
@@ -45,13 +45,12 @@ int main(int argc, char **argv)
     while (programLaunched)
     {
         SDL_Event event;
-        // détecte tous les éléments lorsque le programme est lancé
         while (SDL_PollEvent(&event))
         {
             switch (event.type)
             {
             case SDL_KEYDOWN:
-                handleKeyEvents(&event);
+                handleKeyEvents(renderer, &event, &padLeft, &padRight, color, &isGameStarted);
                 break;
 
             case SDL_QUIT:
@@ -64,9 +63,9 @@ int main(int argc, char **argv)
         }
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
-        renderGame();
+        renderGame(renderer, &padLeft, &padRight, &ball);
 
-        if (gameStarted)
+        if (isGameStarted)
         {
             ball.x += 2;
             ball.y += 2;
@@ -81,11 +80,11 @@ int main(int argc, char **argv)
         SDL_RenderPresent(renderer);
     }
 
-    closeProgram();
+    closeProgram(renderer, window);
     return 0;
 }
 
-void closeProgram(void)
+void closeProgram(SDL_Renderer *renderer, SDL_Window *window)
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

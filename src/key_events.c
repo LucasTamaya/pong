@@ -2,29 +2,28 @@
 #include "constants.h"
 #include "game.h"
 
-void handleKeyEvents(SDL_Event *event)
+void handleKeyEvents(SDL_Renderer *renderer, SDL_Event *event, SDL_Rect *padLeft, SDL_Rect *padRight, SDL_Color color, int *isGameStarted)
 {
     switch (event->key.keysym.sym)
     {
     case SDLK_z:
-        handlePadMovement(&padLeft, "UP");
+        movePadToTop(padLeft, renderer, color);
         break;
 
     case SDLK_s:
-        handlePadMovement(&padLeft, "DOWN");
+        movePadToBottom(padLeft, renderer, color);
         break;
 
     case SDLK_UP:
-        handlePadMovement(&padRight, "UP");
+        movePadToTop(padRight, renderer, color);
         break;
 
     case SDLK_DOWN:
-        handlePadMovement(&padRight, "DOWN");
+        movePadToBottom(padRight, renderer, color);
         break;
 
     case SDLK_SPACE:
-        gameStarted = 1;
-        // startGame();
+        *isGameStarted = 1;
         break;
 
     default:

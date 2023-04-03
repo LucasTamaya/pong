@@ -3,9 +3,7 @@
 
 #include <SDL.h>
 
-void startGame(void);
-void updateBallPosition(void);
-void updatePadPosition(SDL_Rect *pad);
-void handlePadMovement(SDL_Rect *pad, char *direction);
+void movePadToTop(SDL_Rect *pad, SDL_Renderer *renderer, SDL_Color color);
+void movePadToBottom(SDL_Rect *pad, SDL_Renderer *renderer, SDL_Color color);
 
 #endif

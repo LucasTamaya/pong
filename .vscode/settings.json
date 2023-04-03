@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "stdlib.h": "c",
-    "pad_movement.h": "c"
+    "pad_movement.h": "c",
+    "sdl.h": "c"
   }
 }
