@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game.h"
 
-void handleKeyEvents(SDL_Renderer *renderer, SDL_Event *event, SDL_Rect *padLeft, SDL_Rect *padRight, SDL_Color color, int *isGameStarted)
+void handleKeyEvents(SDL_Renderer *renderer, SDL_Event *event, SDL_FRect *padLeft, SDL_FRect *padRight, SDL_Color color, int *isGameStarted)
 {
     switch (event->key.keysym.sym)
     {

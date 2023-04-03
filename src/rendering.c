@@ -1,21 +1,33 @@
 #include "rendering.h"
 #include "constants.h"
 #include "utils.h"
+#include "game.h"
 
-void renderGame(SDL_Renderer *renderer, SDL_Rect *padLeft, SDL_Rect *padRight, SDL_Rect *ball)
+void renderGame(SDL_Renderer *renderer, SDL_FRect *padLeft, SDL_FRect *padRight, SDL_FRect *ball, SDL_Color color, int isGameStarted)
 {
-    SDL_SetRenderDrawColor(renderer, 94, 0, 188, 255);
-    SDL_RenderFillRect(renderer, padLeft);
-    SDL_RenderFillRect(renderer, padRight);
-    SDL_RenderFillRect(renderer, ball);
+    if (SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a) != 0)
+        exitWithError(__FILE__, 11);
+    if (SDL_RenderFillRectF(renderer, padLeft) != 0)
+        exitWithError(__FILE__, 10);
+    if (SDL_RenderFillRectF(renderer, padRight) != 0)
+        exitWithError(__FILE__, 12);
+    if (SDL_RenderFillRectF(renderer, ball) != 0)
+        exitWithError(__FILE__, 14);
+
+    if (isGameStarted)
+    {
+        handleBallBounces(ball);
+        if (SDL_RenderFillRectF(renderer, ball) != 0)
+            exitWithError(__FILE__, 22);
+    }
 }
 
-void renderPad(SDL_Renderer *renderer, SDL_Rect *pad, SDL_Color color)
+void renderPad(SDL_Renderer *renderer, SDL_FRect *pad, SDL_Color color)
 {
     if (SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a) != 0)
         exitWithError(__FILE__, 11);
 
-    if (SDL_RenderFillRect(renderer, pad) != 0)
+    if (SDL_RenderFillRectF(renderer, pad) != 0)
         exitWithError(__FILE__, 33);
 
     SDL_RenderPresent(renderer);

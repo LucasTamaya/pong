@@ -8,15 +8,15 @@
 #include "rendering.h"
 
 void closeProgram(SDL_Renderer *renderer, SDL_Window *window);
-void createRect(SDL_Rect *rect, int x, int y, int w, int h);
+void createRect(SDL_FRect *rect, float x, float y, float w, float h);
 
 int main(int argc, char **argv)
 {
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
-    SDL_Rect padLeft = {};
-    SDL_Rect padRight = {};
-    SDL_Rect ball = {};
+    SDL_FRect padLeft = {};
+    SDL_FRect padRight = {};
+    SDL_FRect ball = {};
     SDL_Color color = {94, 0, 188, 255};
     int isProgramLaunched = 1;
     int isGameStarted = 0;
@@ -52,20 +52,7 @@ int main(int argc, char **argv)
         }
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
-        renderGame(renderer, &padLeft, &padRight, &ball);
-
-        if (isGameStarted)
-        {
-            ball.x += 2;
-            ball.y += 2;
-            if (SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a) != 0)
-                exitWithError(__FILE__, 11);
-
-            if (SDL_RenderFillRect(renderer, &ball) != 0)
-                exitWithError(__FILE__, 33);
-
-            SDL_RenderPresent(renderer);
-        }
+        renderGame(renderer, &padLeft, &padRight, &ball, color, isGameStarted);
         SDL_RenderPresent(renderer);
     }
 
@@ -80,7 +67,7 @@ void closeProgram(SDL_Renderer *renderer, SDL_Window *window)
     SDL_Quit();
 }
 
-void createRect(SDL_Rect *rect, int x, int y, int w, int h)
+void createRect(SDL_FRect *rect, float x, float y, float w, float h)
 {
     rect->x = x;
     rect->y = y;
