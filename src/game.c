@@ -11,19 +11,13 @@ float ballYSpeedMove = 0.1f;
 void movePadToTop(SDL_FRect *pad, SDL_Renderer *renderer, SDL_Color color)
 {
     if (pad->y > 0)
-    {
         pad->y -= 10;
-        renderPad(renderer, pad, color);
-    }
 }
 
 void movePadToBottom(SDL_FRect *pad, SDL_Renderer *renderer, SDL_Color color)
 {
     if (pad->y < WINDOW_HEIGHT - pad->h)
-    {
         pad->y += 10;
-        renderPad(renderer, pad, color);
-    }
 }
 
 void reverseBallSpeedMove(float *ballSpeedMove)
