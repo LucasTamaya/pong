@@ -16,7 +16,7 @@ void renderGame(SDL_Renderer *renderer, SDL_FRect *padLeft, SDL_FRect *padRight,
 
     if (isGameStarted)
     {
-        handleBallBounces(ball);
+        handleBallBounces(ball, padLeft, padRight);
         if (SDL_RenderFillRectF(renderer, ball) != 0)
             exitWithError(__FILE__, 22);
     }
@@ -29,6 +29,4 @@ void renderPad(SDL_Renderer *renderer, SDL_FRect *pad, SDL_Color color)
 
     if (SDL_RenderFillRectF(renderer, pad) != 0)
         exitWithError(__FILE__, 33);
-
-    SDL_RenderPresent(renderer);
 }

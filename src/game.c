@@ -26,37 +26,42 @@ void movePadToBottom(SDL_FRect *pad, SDL_Renderer *renderer, SDL_Color color)
     }
 }
 
-void handleBallBounces(SDL_FRect *ball)
+void reverseBallSpeedMove(float *ballSpeedMove)
+{
+    *ballSpeedMove *= -1;
+}
+
+void handleBallBounceOnWindow(SDL_FRect *ball)
 {
     SDL_bool ballBounceOnWindowTop = ball->y < 0;
     SDL_bool ballBounceOnWindowBottom = ball->y > WINDOW_HEIGHT - ball->h;
-    SDL_bool ballBounceOnWindowLeft = ball->x < 0;
-    SDL_bool ballBounceOnWindowRight = ball->x > WINDOW_WIDTH - ball->w;
-
-    ball->x += ballXSpeedMove;
-    ball->y += ballYSpeedMove;
 
     if (ballBounceOnWindowTop)
     {
         ball->y += 1;
-        ballYSpeedMove = ballYSpeedMove * -1;
+        reverseBallSpeedMove(&ballYSpeedMove);
     }
 
     if (ballBounceOnWindowBottom)
     {
         ball->y -= 1;
-        ballYSpeedMove = ballYSpeedMove * -1;
+        reverseBallSpeedMove(&ballYSpeedMove);
     }
+}
 
-    if (ballBounceOnWindowLeft)
-    {
-        ball->x += 1;
-        ballXSpeedMove = ballXSpeedMove * -1;
-    }
+void handleBallBounceOnPads(SDL_FRect *ball, SDL_FRect *padLeft, SDL_FRect *padRight)
+{
+    SDL_bool ballBounceOnPadLeft = ball->x < padLeft->x + PAD_WIDTH && ball->y > padLeft->y && ball->y < padLeft->y + PAD_HEIGHT;
+    SDL_bool ballBounceOnPadRight = ball->x + ball->w > padRight->x && ball->y > padRight->y && ball->y < padRight->y + PAD_HEIGHT;
 
-    if (ballBounceOnWindowRight)
-    {
-        ball->x -= 1;
-        ballXSpeedMove = ballXSpeedMove * -1;
-    }
+    if (ballBounceOnPadLeft || ballBounceOnPadRight)
+        reverseBallSpeedMove(&ballXSpeedMove);
+}
+
+void handleBallBounces(SDL_FRect *ball, SDL_FRect *padLeft, SDL_FRect *padRight)
+{
+    ball->x += ballXSpeedMove;
+    ball->y += ballYSpeedMove;
+    handleBallBounceOnWindow(ball);
+    handleBallBounceOnPads(ball, padLeft, padRight);
 }
