@@ -3,6 +3,9 @@
     "stdlib.h": "c",
     "pad_movement.h": "c",
     "sdl.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "sdl_ttf.h": "c",
+    "constants.h": "c",
+    "utils.h": "c"
   }
 }

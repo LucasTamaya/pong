@@ -7,5 +7,16 @@
 #define PAD_HEIGHT 100
 #define BALL_WIDTH 20
 #define BALL_HEIGHT 20
+#define FONT_FILE_PATH "C:/Users/lucas/OneDrive/Documents/informatique/C/pong_sdl/font/Lato-Regular.ttf"
+
+#include <SDL_ttf.h>
+
+extern SDL_Surface *surfaceScoreLeft;
+extern SDL_Texture *textureScoreLeft;
+extern SDL_Surface *surfaceScoreRight;
+extern SDL_Texture *textureScoreRight;
+extern TTF_Font *font;
+extern int scoreLeft;
+extern int scoreRight;
 
 #endif

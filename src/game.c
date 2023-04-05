@@ -59,3 +59,50 @@ void handleBallBounces(SDL_FRect *ball, SDL_FRect *padLeft, SDL_FRect *padRight)
     handleBallBounceOnWindow(ball);
     handleBallBounceOnPads(ball, padLeft, padRight);
 }
+
+void resetBallPosition(SDL_FRect *ball)
+{
+    ball->x = (WINDOW_WIDTH - ball->w) / 2;
+    ball->y = (WINDOW_HEIGHT - ball->h) / 2;
+}
+
+void handleScore(SDL_FRect *ball, int *scoreLeft, int *scoreRight, SDL_Renderer *renderer, SDL_Color color)
+{
+    if (ball->x > WINDOW_WIDTH)
+    {
+        resetBallPosition(ball);
+        *scoreLeft += 1;
+        char scoreLeftMessage[100];
+        sprintf(scoreLeftMessage, "%d", *scoreLeft);
+
+        SDL_FreeSurface(surfaceScoreLeft);
+        SDL_DestroyTexture(textureScoreLeft);
+
+        surfaceScoreLeft = TTF_RenderText_Solid(font, scoreLeftMessage, color);
+        if (surfaceScoreLeft == NULL)
+            exitWithError(__FILE__, __LINE__);
+
+        textureScoreLeft = SDL_CreateTextureFromSurface(renderer, surfaceScoreLeft);
+        if (textureScoreLeft == NULL)
+            exitWithError(__FILE__, __LINE__);
+    }
+
+    if (ball->x + ball->w < 0)
+    {
+        resetBallPosition(ball);
+        *scoreRight += 1;
+        char scoreRightMessage[100];
+        sprintf(scoreRightMessage, "%d", *scoreRight);
+
+        SDL_FreeSurface(surfaceScoreRight);
+        SDL_DestroyTexture(textureScoreRight);
+
+        surfaceScoreRight = TTF_RenderText_Solid(font, scoreRightMessage, color);
+        if (surfaceScoreRight == NULL)
+            exitWithError(__FILE__, __LINE__);
+
+        textureScoreRight = SDL_CreateTextureFromSurface(renderer, surfaceScoreRight);
+        if (textureScoreRight == NULL)
+            exitWithError(__FILE__, __LINE__);
+    }
+}
