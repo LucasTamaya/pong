@@ -18,5 +18,6 @@ extern SDL_Texture *textureScoreRight;
 extern TTF_Font *font;
 extern int scoreLeft;
 extern int scoreRight;
+extern int isGameStarted;
 
 #endif

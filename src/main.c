@@ -18,6 +18,7 @@ SDL_Surface *surfaceScoreRight = NULL;
 SDL_Texture *textureScoreRight = NULL;
 int scoreLeft = 0;
 int scoreRight = 0;
+int isGameStarted = 0;
 
 int main(int argc, char **argv)
 {
@@ -28,7 +29,6 @@ int main(int argc, char **argv)
     SDL_FRect ball = {};
     SDL_Color color = {94, 0, 188, 255};
     int isProgramLaunched = 1;
-    int isGameStarted = 0;
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
         exitWithError(__FILE__, __LINE__);

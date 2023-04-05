@@ -62,6 +62,7 @@ void handleBallBounces(SDL_FRect *ball, SDL_FRect *padLeft, SDL_FRect *padRight)
 
 void resetBallPosition(SDL_FRect *ball)
 {
+    isGameStarted = 0;
     ball->x = (WINDOW_WIDTH - ball->w) / 2;
     ball->y = (WINDOW_HEIGHT - ball->h) / 2;
 }
