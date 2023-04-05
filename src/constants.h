@@ -15,6 +15,7 @@ extern SDL_Surface *surfaceScoreLeft;
 extern SDL_Texture *textureScoreLeft;
 extern SDL_Surface *surfaceScoreRight;
 extern SDL_Texture *textureScoreRight;
+extern SDL_Color color;
 extern TTF_Font *font;
 extern int scoreLeft;
 extern int scoreRight;

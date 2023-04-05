@@ -67,14 +67,14 @@ void resetBallPosition(SDL_FRect *ball)
     ball->y = (WINDOW_HEIGHT - ball->h) / 2;
 }
 
-void handleScore(SDL_FRect *ball, int *scoreLeft, int *scoreRight, SDL_Renderer *renderer, SDL_Color color)
+void handleScore(SDL_FRect *ball, SDL_Renderer *renderer)
 {
     if (ball->x > WINDOW_WIDTH)
     {
         resetBallPosition(ball);
-        *scoreLeft += 1;
+        scoreLeft += 1;
         char scoreLeftMessage[100];
-        sprintf(scoreLeftMessage, "%d", *scoreLeft);
+        sprintf(scoreLeftMessage, "%d", scoreLeft);
 
         SDL_FreeSurface(surfaceScoreLeft);
         SDL_DestroyTexture(textureScoreLeft);
@@ -91,9 +91,9 @@ void handleScore(SDL_FRect *ball, int *scoreLeft, int *scoreRight, SDL_Renderer 
     if (ball->x + ball->w < 0)
     {
         resetBallPosition(ball);
-        *scoreRight += 1;
+        scoreRight += 1;
         char scoreRightMessage[100];
-        sprintf(scoreRightMessage, "%d", *scoreRight);
+        sprintf(scoreRightMessage, "%d", scoreRight);
 
         SDL_FreeSurface(surfaceScoreRight);
         SDL_DestroyTexture(textureScoreRight);

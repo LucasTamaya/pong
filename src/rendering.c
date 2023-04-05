@@ -14,7 +14,7 @@ void renderGame(SDL_Renderer *renderer, SDL_FRect *padLeft, SDL_FRect *padRight,
     if (isGameStarted)
     {
         handleBallBounces(ball, padLeft, padRight);
-        handleScore(ball, &scoreLeft, &scoreRight, renderer, color);
+        handleScore(ball, renderer);
     }
 
     // Draw pads and ball

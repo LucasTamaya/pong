@@ -16,6 +16,7 @@ SDL_Surface *surfaceScoreLeft = NULL;
 SDL_Texture *textureScoreLeft = NULL;
 SDL_Surface *surfaceScoreRight = NULL;
 SDL_Texture *textureScoreRight = NULL;
+SDL_Color color = {94, 0, 188, 255};
 int scoreLeft = 0;
 int scoreRight = 0;
 int isGameStarted = 0;
@@ -27,7 +28,6 @@ int main(int argc, char **argv)
     SDL_FRect padLeft = {};
     SDL_FRect padRight = {};
     SDL_FRect ball = {};
-    SDL_Color color = {94, 0, 188, 255};
     int isProgramLaunched = 1;
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0)

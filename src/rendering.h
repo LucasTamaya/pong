@@ -1,6 +1,7 @@
 #ifndef RENDERING_H_
 #define RENDERING_H_
 
+#include <stdio.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
 

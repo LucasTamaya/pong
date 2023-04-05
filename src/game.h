@@ -10,6 +10,6 @@ void handleBallBounceOnWindow(SDL_FRect *ball);
 void handleBallBounceOnPads(SDL_FRect *ball, SDL_FRect *padLeft, SDL_FRect *padRight);
 void handleBallBounces(SDL_FRect *ball, SDL_FRect *padLeft, SDL_FRect *padRight);
 void resetBallPosition(SDL_FRect *ball);
-void handleScore(SDL_FRect *ball, int *scoreLeft, int *scoreRight, SDL_Renderer *renderer, SDL_Color color);
+void handleScore(SDL_FRect *ball, SDL_Renderer *renderer);
 
 #endif
